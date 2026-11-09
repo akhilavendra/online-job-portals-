@@ -1,55 +1,350 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Find your next move | workwell</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
     <link rel="stylesheet" th:href="@{/css/site.css}">
 </head>
+
 <body>
+
 <div th:replace="~{fragments :: nav}"></div>
+
 <main>
+
+    <!-- SEARCH SECTION -->
+
     <section class="search-hero">
+
         <div class="hero-copy">
-            <p class="eyebrow"><span class="eyebrow-dot"></span> Work that works for you</p>
-            <h1>Find a role<br>that moves you <span>forward.</span></h1>
-            <p class="hero-note">A thoughtful next step starts with the right opportunity.</p>
+
+            <p class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Work that works for you
+            </p>
+
+            <h1>
+                Find a role<br>
+                that moves you
+                <span>forward.</span>
+            </h1>
+
+            <p class="hero-note">
+                A thoughtful next step starts with the right opportunity.
+            </p>
+
         </div>
-        <form class="job-search" th:action="@{/jobs}" method="get">
-            <label class="search-field"><span>What are you looking for?</span><input type="search" name="keyword" placeholder="Job title, company, skill" th:value="${keyword}"></label>
-            <label class="search-field"><span>Where?</span><input type="search" name="location" placeholder="City or remote" th:value="${location}"></label>
-            <label class="search-field search-type"><span>Work type</span><select name="type"><option value="">Any type</option><option value="Full-time" th:selected="${type == 'Full-time'}">Full-time</option><option value="Part-time" th:selected="${type == 'Part-time'}">Part-time</option><option value="Contract" th:selected="${type == 'Contract'}">Contract</option><option value="Remote" th:selected="${type == 'Remote'}">Remote</option></select></label>
-            <button class="button search-button" type="submit">Search jobs <span aria-hidden="true">&#8599;</span></button>
+
+        <!-- JOB SEARCH FORM -->
+
+        <form class="job-search"
+              th:action="@{/jobs}"
+              method="get">
+
+            <!-- JOB KEYWORD -->
+
+            <label class="search-field">
+
+                <span>What are you looking for?</span>
+
+                <input type="search"
+                       name="keyword"
+                       placeholder="Job title, company, skill"
+                       th:value="${keyword}">
+
+            </label>
+
+            <!-- COMPANY SELECTION -->
+
+            <label class="search-field">
+
+                <span>Select Company</span>
+
+                <select name="company">
+
+                    <option value="">All Companies</option>
+
+                    <option value="Infosys"
+                            th:selected="${company == 'Infosys'}">
+                        Infosys
+                    </option>
+
+                    <option value="TCS"
+                            th:selected="${company == 'TCS'}">
+                        TCS
+                    </option>
+
+                    <option value="Wipro"
+                            th:selected="${company == 'Wipro'}">
+                        Wipro
+                    </option>
+
+                    <option value="Accenture"
+                            th:selected="${company == 'Accenture'}">
+                        Accenture
+                    </option>
+
+                    <option value="Google"
+                            th:selected="${company == 'Google'}">
+                        Google
+                    </option>
+
+                    <option value="Microsoft"
+                            th:selected="${company == 'Microsoft'}">
+                        Microsoft
+                    </option>
+
+                    <option value="Amazon"
+                            th:selected="${company == 'Amazon'}">
+                        Amazon
+                    </option>
+
+                    <option value="Deloitte"
+                            th:selected="${company == 'Deloitte'}">
+                        Deloitte
+                    </option>
+
+                    <option value="Capgemini"
+                            th:selected="${company == 'Capgemini'}">
+                        Capgemini
+                    </option>
+
+                    <option value="Cognizant"
+                            th:selected="${company == 'Cognizant'}">
+                        Cognizant
+                    </option>
+
+                </select>
+
+            </label>
+
+            <!-- LOCATION -->
+
+            <label class="search-field">
+
+                <span>Where?</span>
+
+                <input type="search"
+                       name="location"
+                       placeholder="City or remote"
+                       th:value="${location}">
+
+            </label>
+
+            <!-- WORK TYPE -->
+
+            <label class="search-field search-type">
+
+                <span>Work type</span>
+
+                <select name="type">
+
+                    <option value="">Any type</option>
+
+                    <option value="Full-time"
+                            th:selected="${type == 'Full-time'}">
+                        Full-time
+                    </option>
+
+                    <option value="Part-time"
+                            th:selected="${type == 'Part-time'}">
+                        Part-time
+                    </option>
+
+                    <option value="Contract"
+                            th:selected="${type == 'Contract'}">
+                        Contract
+                    </option>
+
+                    <option value="Remote"
+                            th:selected="${type == 'Remote'}">
+                        Remote
+                    </option>
+
+                </select>
+
+            </label>
+
+            <!-- SEARCH BUTTON -->
+
+            <button class="button search-button"
+                    type="submit">
+
+                Search jobs
+                <span aria-hidden="true">&#8599;</span>
+
+            </button>
+
         </form>
-        <div class="hero-stamp" aria-hidden="true"><span>GOOD<br>WORK<br>STARTS<br>HERE</span><b>W.</b></div>
+
+        <div class="hero-stamp" aria-hidden="true">
+
+            <span>
+                GOOD<br>
+                WORK<br>
+                STARTS<br>
+                HERE
+            </span>
+
+            <b>W.</b>
+
+        </div>
+
     </section>
 
+
+    <!-- JOB LIST SECTION -->
+
     <section class="job-section container-fluid">
+
         <div th:replace="~{fragments :: messages}"></div>
+
         <div class="section-heading">
-            <div><p class="eyebrow eyebrow-dark">THE OPENINGS</p><h2>Opportunities worth a look</h2></div>
-            <p class="result-count" th:text="${jobs.size()} + ' roles'">0 roles</p>
+
+            <div>
+
+                <p class="eyebrow eyebrow-dark">
+                    THE OPENINGS
+                </p>
+
+                <h2>Opportunities worth a look</h2>
+
+            </div>
+
+            <p class="result-count"
+               th:text="${jobs.size()} + ' roles'">
+                0 roles
+            </p>
+
         </div>
-        <div class="job-list" th:if="${!jobs.isEmpty()}">
-            <article class="job-row" th:each="job, state : ${jobs}">
-                <div class="job-index" th:text="${#numbers.formatInteger(state.count, 2)}">01</div>
-                <div class="job-main"><p class="job-company" th:text="${job.company}">Company</p><h3><a th:href="@{/jobs/{id}(id=${job.id})}" th:text="${job.title}">Role</a></h3><p class="job-meta"><span th:text="${job.location}">Location</span><span th:text="${job.employmentType}">Type</span></p></div>
-                <div class="job-skills" th:text="${job.requiredSkills}">Skills</div>
-                <div class="job-compensation" th:if="${job.salaryRange != null}" th:text="${job.salaryRange}">Salary</div>
-                <a class="job-arrow" th:href="@{/jobs/{id}(id=${job.id})}" aria-label="View job details">&#8599;</a>
+
+
+        <!-- JOB RESULTS -->
+
+        <div class="job-list"
+             th:if="${!jobs.isEmpty()}">
+
+            <article class="job-row"
+                     th:each="job, state : ${jobs}">
+
+                <div class="job-index"
+                     th:text="${#numbers.formatInteger(state.count, 2)}">
+                    01
+                </div>
+
+                <div class="job-main">
+
+                    <p class="job-company"
+                       th:text="${job.company}">
+                        Company
+                    </p>
+
+                    <h3>
+
+                        <a th:href="@{/jobs/{id}(id=${job.id})}"
+                           th:text="${job.title}">
+                            Job Title
+                        </a>
+
+                    </h3>
+
+                    <p class="job-meta">
+
+                        <span th:text="${job.location}">
+                            Location
+                        </span>
+
+                        <span th:text="${job.employmentType}">
+                            Type
+                        </span>
+
+                    </p>
+
+                </div>
+
+                <div class="job-skills"
+                     th:text="${job.requiredSkills}">
+                    Skills
+                </div>
+
+                <div class="job-compensation"
+                     th:if="${job.salaryRange != null}"
+                     th:text="${job.salaryRange}">
+                    Salary
+                </div>
+
+                <a class="job-arrow"
+                   th:href="@{/jobs/{id}(id=${job.id})}"
+                   aria-label="View job details">
+                    &#8599;
+                </a>
+
             </article>
+
         </div>
-        <div class="empty-state" th:if="${jobs.isEmpty()}">
-            <span class="empty-mark">0</span><h3>No matching roles just yet</h3>
-            <p>Try a different title or location. New opportunities will show up here.</p>
-            <a class="text-link" th:href="@{/jobs}">Clear search &#8594;</a>
+
+
+        <!-- EMPTY RESULTS -->
+
+        <div class="empty-state"
+             th:if="${jobs.isEmpty()}">
+
+            <span class="empty-mark">0</span>
+
+            <h3>No matching roles just yet</h3>
+
+            <p>
+                Try a different title, company or location.
+                New opportunities will show up here.
+            </p>
+
+            <a class="text-link"
+               th:href="@{/jobs}">
+                Clear search &#8594;
+            </a>
+
         </div>
+
     </section>
-    <footer class="site-footer"><a class="brand brand-footer" th:href="@{/}"><span class="brand-mark">J</span><span>workwell<span class="brand-dot">.</span></span></a><span>Make your next move count.</span><span>&copy; 2026 workwell</span></footer>
+
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer">
+
+        <a class="brand brand-footer"
+           th:href="@{/}">
+
+            <span class="brand-mark">J</span>
+
+            <span>
+                workwell<span class="brand-dot">.</span>
+            </span>
+
+        </a>
+
+        <span>Make your next move count.</span>
+
+        <span>&copy; 2026 workwell</span>
+
+    </footer>
+
 </main>
+
 </body>
 </html>
