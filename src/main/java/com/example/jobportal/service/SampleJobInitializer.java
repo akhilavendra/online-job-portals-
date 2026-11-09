@@ -55,3 +55,4 @@ public class SampleJobInitializer implements CommandLineRunner {
         return job;
     }
 }
+app.seed.sample-jobs=true
