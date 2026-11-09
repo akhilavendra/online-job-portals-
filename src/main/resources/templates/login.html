@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body class="account-page">
+<div th:replace="~{fragments :: nav}"></div>
+<main class="account-layout"><section class="account-aside"><p class="eyebrow">WELCOME BACK</p><h1>Your next chapter<br>is waiting.</h1><p>Sign in to pick up where you left off.</p><div class="aside-graphic" aria-hidden="true"><span>W</span><i></i><b></b></div></section>
+    <section class="account-panel"><div th:replace="~{fragments :: messages}"></div><p class="eyebrow eyebrow-dark">YOUR ACCOUNT</p><h2>Sign in</h2>
+        <div class="message error" th:if="${param.error}">Email or password is incorrect.</div>
+        <div class="message success" th:if="${param.logout}">You have signed out.</div>
+        <form th:action="@{/login}" method="post" class="form-stack">
+            <label>Email address<input type="email" name="email" autocomplete="email" required maxlength="190"></label>
+            <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+            <button class="button" type="submit">Sign in <span aria-hidden="true">&#8599;</span></button>
+        </form>
+        <p class="form-switch">New to workwell? <a th:href="@{/register}">Create an account</a></p>
+    </section>
+</main>
+</body>
+</html>

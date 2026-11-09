@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>My profile | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"><link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body><div th:replace="~{fragments :: nav}"></div><main class="page-wrap container-fluid">
+    <div class="page-title"><div><p class="eyebrow eyebrow-dark">YOUR DETAILS</p><h1>My profile</h1><p>Help employers understand what you bring to the role.</p></div></div><div th:replace="~{fragments :: messages}"></div>
+    <div class="profile-grid"><section class="panel"><h2>Personal and education</h2>
+        <form th:action="@{/profile}" th:object="${profileForm}" method="post" class="form-stack form-grid">
+            <label class="span-two">Full name<input type="text" th:field="*{fullName}" required maxlength="100"><small class="field-error" th:errors="*{fullName}"></small></label>
+            <label>Email address<input type="email" th:value="${account.email}" readonly></label>
+            <label>Mobile number<input type="tel" th:field="*{mobile}" required><small class="field-error" th:errors="*{mobile}"></small></label>
+            <label class="span-two">Professional headline<input type="text" th:field="*{headline}" maxlength="120" placeholder="Product designer focused on accessible tools"></label>
+            <label>Location<input type="text" th:field="*{location}" maxlength="120" placeholder="City or remote"></label>
+            <label>Highest qualification<input type="text" th:field="*{qualification}" maxlength="120" placeholder="Bachelor of Science"></label>
+            <label class="span-two">Institution<input type="text" th:field="*{institution}" maxlength="160"></label>
+            <label>Graduation year<input type="number" th:field="*{graduationYear}" min="1950" max="2100"><small class="field-error" th:errors="*{graduationYear}"></small></label>
+            <label class="span-two">Skills<textarea th:field="*{skills}" rows="3" maxlength="1000" placeholder="Java, SQL, communication..."></textarea></label>
+            <div class="span-two form-actions"><button class="button" type="submit">Save profile <span aria-hidden="true">&#8599;</span></button></div>
+        </form>
+    </section><aside class="panel resume-panel"><p class="eyebrow eyebrow-dark">YOUR RESUME</p><h2>Make the first impression count.</h2><p>Upload a PDF, DOC or DOCX file. Maximum size: 5 MB.</p>
+        <div class="resume-state" th:if="${account.resumePath != null}"><span class="resume-icon">PDF</span><div><strong>Resume on file</strong><a th:href="@{/profile/resume}">Download resume</a></div><form th:action="@{/profile/resume/delete}" method="post"><button class="text-button" type="submit">Remove</button></form></div>
+        <form th:action="@{/profile/resume}" method="post" enctype="multipart/form-data" class="upload-form"><label for="resume">Choose a file</label><input id="resume" type="file" name="resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required><button class="button button-dark" type="submit">Upload resume</button></form>
+    </aside></div>
+</main></body>
+</html>

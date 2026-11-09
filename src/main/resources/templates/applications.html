@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>My applications | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"><link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body><div th:replace="~{fragments :: nav}"></div><main class="page-wrap container-fluid">
+    <div class="page-title"><div><p class="eyebrow eyebrow-dark">YOUR NEXT MOVE</p><h1>My applications</h1><p>Every application, all in one place.</p></div><a class="button" th:href="@{/jobs}">Explore jobs <span aria-hidden="true">&#8599;</span></a></div><div th:replace="~{fragments :: messages}"></div>
+    <div class="application-list" th:if="${!applications.isEmpty()}"><article class="application-row" th:each="jobApplication : ${applications}">
+        <div class="company-monogram" th:text="${#strings.substring(jobApplication.job.company, 0, 1)}">C</div><div class="application-info"><p class="job-company" th:text="${jobApplication.job.company}">Company</p><h2><a th:href="@{/jobs/{id}(id=${jobApplication.job.id})}" th:text="${jobApplication.job.title}">Role</a></h2><p class="job-meta"><span th:text="${jobApplication.job.location}">Location</span><span th:text="${jobApplication.job.employmentType}">Type</span></p></div>
+        <div class="application-status"><span class="status-pill" th:classappend="${' status-' + #strings.toLowerCase(jobApplication.status.name())}" th:text="${#strings.replace(jobApplication.status.name(), '_', ' ')}">SUBMITTED</span><small th:text="${#temporals.format(jobApplication.appliedAt, 'MMM d, yyyy')}">Date</small></div>
+    </article></div>
+    <div class="empty-state" th:if="${applications.isEmpty()}"><span class="empty-mark">01</span><h3>Your next move starts here</h3><p>You haven't applied to any roles yet.</p><a class="button" th:href="@{/jobs}">Browse open roles <span aria-hidden="true">&#8599;</span></a></div>
+</main></body>
+</html>

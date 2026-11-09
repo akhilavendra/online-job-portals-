@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="nav" class="site-nav">
+    <a class="brand" th:href="@{/}"><span class="brand-mark">J</span><span>workwell<span class="brand-dot">.</span></span></a>
+    <div class="nav-links">
+        <a th:href="@{/jobs}">Find a job</a>
+        <a sec:authorize="hasRole('JOB_SEEKER')" th:href="@{/applications}">My applications</a>
+        <a sec:authorize="hasRole('JOB_SEEKER')" th:href="@{/profile}">My profile</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Admin</a>
+    </div>
+    <div class="nav-account">
+        <a sec:authorize="isAnonymous()" class="nav-login" th:href="@{/login}">Sign in</a>
+        <a sec:authorize="isAnonymous()" class="button button-small" th:href="@{/register}">Create account</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <button class="nav-logout" type="submit">Sign out</button>
+        </form>
+    </div>
+</nav>
+<div th:fragment="messages" class="message-stack">
+    <div class="message success" th:if="${notice}" th:text="${notice}"></div>
+    <div class="message error" th:if="${error}" th:text="${error}"></div>
+</div>
+</body>
+</html>

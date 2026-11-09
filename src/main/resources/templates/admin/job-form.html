@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title th:text="${editing ? 'Edit listing' : 'Post a job'} + ' | workwell'">Job listing | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"><link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body><div th:replace="~{fragments :: nav}"></div><main class="page-wrap form-page container-fluid">
+    <a class="back-link" th:href="@{/admin}">&#8592; Dashboard</a><div class="page-title"><div><p class="eyebrow eyebrow-dark">JOB BOARD</p><h1 th:text="${editing ? 'Edit listing' : 'Post a job'}">Post a job</h1><p>Give candidates a clear picture of the opportunity.</p></div></div>
+    <section class="panel admin-form-panel"><form th:action="${editing} ? @{/admin/jobs/{id}(id=${jobId})} : @{/admin/jobs}" th:object="${jobForm}" method="post" class="form-stack form-grid">
+        <label>Job title<input type="text" th:field="*{title}" required maxlength="120"><small class="field-error" th:errors="*{title}"></small></label>
+        <label>Company<input type="text" th:field="*{company}" required maxlength="120"><small class="field-error" th:errors="*{company}"></small></label>
+        <label>Location<input type="text" th:field="*{location}" required maxlength="120" placeholder="City or Remote"><small class="field-error" th:errors="*{location}"></small></label>
+        <label>Employment type<select th:field="*{employmentType}" required><option value="">Choose a type</option><option value="Full-time">Full-time</option><option value="Part-time">Part-time</option><option value="Contract">Contract</option><option value="Remote">Remote</option><option value="Internship">Internship</option></select><small class="field-error" th:errors="*{employmentType}"></small></label>
+        <label>Salary range <span class="optional">Optional</span><input type="text" th:field="*{salaryRange}" maxlength="80" placeholder="$80,000 - $100,000"></label>
+        <label class="span-two">Required skills<input type="text" th:field="*{requiredSkills}" required maxlength="500" placeholder="Java, Spring Boot, SQL"><small class="field-error" th:errors="*{requiredSkills}"></small></label>
+        <label class="span-two">Role description<textarea th:field="*{description}" rows="8" required maxlength="3000"></textarea><small class="field-error" th:errors="*{description}"></small></label>
+        <label class="check-label span-two"><input type="checkbox" th:field="*{active}"> Listing is visible to candidates</label>
+        <div class="span-two form-actions"><button class="button" type="submit" th:text="${editing ? 'Save changes' : 'Publish listing'}">Publish listing</button><a class="text-link" th:href="@{/admin}">Cancel</a></div>
+    </form></section>
+</main></body>
+</html>

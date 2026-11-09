@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title th:text="${job.title} + ' | workwell'">Job | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"><link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body><div th:replace="~{fragments :: nav}"></div><main class="detail-wrap container-fluid">
+    <a class="back-link" th:href="@{/jobs}">&#8592; All jobs</a><div th:replace="~{fragments :: messages}"></div>
+    <div class="detail-grid"><article class="detail-main"><p class="eyebrow eyebrow-dark" th:text="${job.company}">Company</p><h1 th:text="${job.title}">Job title</h1><p class="job-meta detail-meta"><span th:text="${job.location}">Location</span><span th:text="${job.employmentType}">Type</span><span th:if="${job.salaryRange != null}" th:text="${job.salaryRange}">Salary</span></p>
+        <div class="detail-rule"></div><h2>About the role</h2><p class="long-copy" th:text="${job.description}"></p><h2>Skills and experience</h2><p class="skill-line" th:text="${job.requiredSkills}"></p>
+    </article><aside class="apply-panel"><p class="eyebrow eyebrow-dark">THE OPPORTUNITY</p><h2 th:text="${job.company}">Company</h2><p>Applications are reviewed by the hiring team. Keep your profile and resume up to date before applying.</p>
+        <form sec:authorize="hasRole('JOB_SEEKER')" th:if="${!alreadyApplied}" th:action="@{/jobs/{id}/apply(id=${job.id})}" method="post"><button class="button button-wide" type="submit">Apply for this role <span aria-hidden="true">&#8599;</span></button></form>
+        <p class="message success" sec:authorize="hasRole('JOB_SEEKER')" th:if="${alreadyApplied}">You have already applied. <a th:href="@{/applications}">Track your application</a></p>
+        <a sec:authorize="isAnonymous()" class="button button-wide" th:href="@{/login}">Sign in to apply <span aria-hidden="true">&#8599;</span></a>
+        <a sec:authorize="hasRole('ADMIN')" class="button button-wide" th:href="@{/admin/jobs/{id}/edit(id=${job.id})}">Edit listing <span aria-hidden="true">&#8599;</span></a>
+    </aside></div>
+</main></body>
+</html>

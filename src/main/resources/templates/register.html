@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create account | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body class="account-page">
+<div th:replace="~{fragments :: nav}"></div>
+<main class="account-layout"><section class="account-aside"><p class="eyebrow">A BETTER WAY FORWARD</p><h1>Good work<br>starts with you.</h1><p>Create your profile and find a role that fits.</p><div class="aside-graphic" aria-hidden="true"><span>W</span><i></i><b></b></div></section>
+    <section class="account-panel"><p class="eyebrow eyebrow-dark">GET STARTED</p><h2>Create account</h2>
+        <form th:action="@{/register}" th:object="${registrationForm}" method="post" class="form-stack">
+            <label>Full name<input type="text" th:field="*{fullName}" autocomplete="name" required maxlength="100"><small class="field-error" th:errors="*{fullName}"></small></label>
+            <label>Email address<input type="email" th:field="*{email}" autocomplete="email" required maxlength="190"><small class="field-error" th:errors="*{email}"></small></label>
+            <label>Mobile number<input type="tel" th:field="*{mobile}" autocomplete="tel" placeholder="+1 555 123 4567" required><small class="field-error" th:errors="*{mobile}"></small></label>
+            <label>Password<input type="password" th:field="*{password}" autocomplete="new-password" minlength="8" maxlength="72" required><small class="field-error" th:errors="*{password}"></small><small>Use at least 8 characters.</small></label>
+            <button class="button" type="submit">Create account <span aria-hidden="true">&#8599;</span></button>
+        </form>
+        <p class="form-switch">Already have an account? <a th:href="@{/login}">Sign in</a></p>
+    </section>
+</main>
+</body>
+</html>

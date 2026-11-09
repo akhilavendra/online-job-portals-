@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin dashboard | workwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"><link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body><div th:replace="~{fragments :: nav}"></div><main class="page-wrap container-fluid admin-wrap">
+    <div class="page-title"><div><p class="eyebrow eyebrow-dark">PORTAL ADMINISTRATION</p><h1>Dashboard</h1><p>Manage open roles and review incoming applications.</p></div><a class="button" th:href="@{/admin/jobs/new}">Post a job <span aria-hidden="true">&#8599;</span></a></div><div th:replace="~{fragments :: messages}"></div>
+    <section class="admin-section"><div class="section-heading"><div><p class="eyebrow eyebrow-dark">JOB BOARD</p><h2>Listings</h2></div><span class="result-count" th:text="${jobs.size()} + ' total'">0 total</span></div>
+        <div class="table-scroll"><table class="admin-table"><thead><tr><th>Role</th><th>Company</th><th>Location</th><th>Visibility</th><th></th></tr></thead><tbody>
+            <tr th:each="job : ${jobs}"><td><strong th:text="${job.title}">Role</strong></td><td th:text="${job.company}">Company</td><td th:text="${job.location}">Location</td><td><span class="status-pill" th:classappend="${job.active ? ' status-hired' : ' status-rejected'}" th:text="${job.active ? 'Active' : 'Inactive'}">Active</span></td><td class="table-actions"><a class="text-link" th:href="@{/admin/jobs/{id}/edit(id=${job.id})}">Edit</a><form th:action="@{/admin/jobs/{id}/delete(id=${job.id})}" method="post"><button class="text-button danger-text" type="submit">Delete</button></form></td></tr>
+            <tr th:if="${jobs.isEmpty()}"><td colspan="5" class="table-empty">No job listings yet. Create the first one.</td></tr>
+        </tbody></table></div>
+    </section>
+    <section class="admin-section"><div class="section-heading"><div><p class="eyebrow eyebrow-dark">CANDIDATES</p><h2>Applications</h2></div><span class="result-count" th:text="${applications.size()} + ' received'">0 received</span></div>
+        <div class="table-scroll"><table class="admin-table"><thead><tr><th>Candidate</th><th>Role</th><th>Applied</th><th>Status</th><th>Update status</th></tr></thead><tbody>
+            <tr th:each="jobApplication : ${applications}"><td><strong th:text="${jobApplication.applicant.fullName}">Candidate</strong><small class="table-sub" th:text="${jobApplication.applicant.email}">Email</small></td><td><span th:text="${jobApplication.job.title}">Role</span><small class="table-sub" th:text="${jobApplication.job.company}">Company</small></td><td th:text="${#temporals.format(jobApplication.appliedAt, 'MMM d, yyyy')}">Date</td><td><span class="status-pill" th:classappend="${' status-' + #strings.toLowerCase(jobApplication.status.name())}" th:text="${#strings.replace(jobApplication.status.name(), '_', ' ')}">SUBMITTED</span></td>
+                <td><form class="status-form" th:action="@{/admin/applications/{id}/status(id=${jobApplication.id})}" method="post"><select name="status" aria-label="Application status"><option th:value="${status}" th:each="status : ${statuses}" th:text="${#strings.replace(status.name(), '_', ' ')}" th:selected="${status == jobApplication.status}"></option></select><button class="button button-small" type="submit">Save</button></form></td></tr>
+            <tr th:if="${applications.isEmpty()}"><td colspan="5" class="table-empty">Applications will appear here as candidates apply.</td></tr>
+        </tbody></table></div>
+    </section>
+</main></body>
+</html>
